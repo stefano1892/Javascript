@@ -1,0 +1,67 @@
+DOM (DocumentObjectModel):
+Astrazione di un testo strutturato.
+Questo testo è n codice HTML e il DOM è semplicemente chiamato HTML DOM.
+Elementi di HTML diventano nodi nel DOM.
+
+Quindi mentre HTML è un testo, il DOM è una rappresentazione in memoria di questo testo
+Il DOM HTML fornisce un'interfaccia per attraversare e modificare i nodi.
+Contiene metodi come getElementById o removeChild. Di solito usiammo il
+linguaggio JavaScript per lavorare con il dom
+
+Quindi ogni volta che vogliamo modificare dinamicamente il contenuto della pagina web,
+modifichiamo il DOM:
+
+var item = document.getElementById("myLI");
+item.parentNode.removeChild(item);
+
+document è un'astrazione del nodo radice, mentre getElementById, parentNode e removeChild
+sono metodi dal HTML DOM API
+
+**********
+PROBLEMI:
+
+Il DOM HTML è sempre strutturato ad albero, il che è consentito dalla struttura
+del documento HTML. Questo è bello perchè possiamo attraversare gli alberi abbastanza
+facilmente.
+
+Un gestore di eventi ha questo aspetto (semplifica l'uso del dom)
+-trova ogni nodo interessato a un evento
+-aggiornalo se necessario
+
+#############################################################################
+
+DOM VIRTUALE
+
+il dom virtuale è un'astrazione del DOM HTML. E' leggero e scollegato dai
+dettagli di implementazione specifici del browser. Poichè il DOM stesso era già
+un'astrazione, il DOM virtuale è, in realtà, un'astrazione di un'astrazione.
+
+Forse è meglio pensare al DOM virtuale come alla copia dlocale e semplificata del DOM HTML
+di React. Permette a React di fare i suoi calcoli all'interno di questo mondo astratto e
+saltare le "reali" operazione DOM, spesso lente e specifiche del browser.
+
+Non c'è una grande differenza tra il DOM "normale" e il DOM virtuale. Questo è il
+motivo per cui le parti JSX del codice React possono sembrare quasi come HTML puro.
+
+Nella maggior parte dei casi, quando si ha un codice HTML e si desifera renderlo un componente React statico,
+tutto ciò che si deve fare è:
+
+- Restituire il codice HTML (render)
+- Sostituire il nome dell'attributo in className perchè class è una parola riservata in Javascript
+
+Quando si parla del DOM virtuale, è importante vedere la differenza tra questi due
+
+*******************REACT ELEMENT:**************************
+
+A ReactElement è una rappresentazione virtuale leggera, apolidia, immutabile di un elemento DOM.
+
+ReactElements vive nel DOM virtuale. Fanno i nodi di base qui. La loro immutabilità
+li rende facili e veloci da confrontare e aggiornare.
+
+Cosa può essere un ReactElement? Quasi ogni tag HTML (div, table, strong, ...)
+Una volta definiti, ReactElements può essere reso nel DOM "reale" e react cessa la gestione di questi elementi
+e diventano nodi nel DOM
+
+*******************REACT COMPONENT:**************************
+
+Ciò che differisce ReactComponent da ReactElement è ReactComponents sono stateful
