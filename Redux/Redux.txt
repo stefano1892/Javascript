@@ -1,0 +1,64 @@
+Redux è un contenitore di stato per le app JavaScript.
+
+Invece di mutare direttamente lo stato, specifica le mutazioni che vuoi che avvengano con oggetti semplici chiamati azioni.
+Quindi si scrive una funzione speciale chiamata reducer per decidere in che modo ogni azione
+trasforma lo stato dell'intera applicazione.
+
+La struttura di Redux:
+
+- Components: un posto per memorizzare i componenti dumb di React. A questi componenti
+    non importa se si sta utilizzando Redux o meno.
+- Containers: una directory per i componenti smart di React che invia azioni allo store di Redux.
+    L'associazione tra redux e react si svolgerà qui
+- Actions: gli action creators andranno all'interno di questa directory.
+- Reducers: ogni reducer ottiene un singolo file, e si mette tutta la logica dei reducers
+    in questa directory
+- Store: la logica per l'inizializazione dello stato e la configurazione dello store
+    andrà qui
+
+Lo stato di un'applicazione è l'insieme delle informazioni che determinano l'output in corrispondenza
+di un dato input in uno specifico istante.
+
+Tre principi fondamentali:
+1) Esiste una singola fonte di verità
+    Lo stato dell'intera applicazione è memorizzato in un unico oggetto
+2) Lo stato è in sola lettura
+    Non è possibile modificare direttamente le informazioni memorizzate nello stato dell'applicazione
+    l'unico modo per farlo è tramite azioni esplicite
+3) Le modifiche allo stato vanno fatte con funzioni pure
+    Lo stato corrente viene sostituito da un nuovo stato generato da funzioni esclusivamente
+    in base ad una azione ed allo stato precedente
+
+
+State: Rappresenta lo stato dell'applicazione ed è costituito da un oggetto con struttura
+    arbitraria, dipendene dalle nostre esigenze applicative; in linea di massima lo stato
+    dell'applicazione ha una struttura ad albero ma questo non è richiesto da redux
+
+Store: E' il contenitore di Redux che custodisce lo stato dell'applicazione e ne consente l'accesso
+    e la manipolazione dall'esterno; come esiste un unico oggetto che rappresenta lo stato dell'applicazione,
+    così esiste un unico store per la sua gestione
+
+Reducer: Un reducer è una normale funzione Javascript che prendo lo stato corrente e un'azione
+    e restituisce lo stato successivo; esso è responsable della transizione tra auno stato e
+    l'altro nel flusso operativo della nostra applicazione ed è fondamentale  che sia una funzione pura,
+    cioè una funzione senza effetti collaterali, che dato uno specifico input restituisce sempre lo stesso output
+
+Action: E' un oggetto Javascript che rappresenta un'azione in gardo di cambiare lo stato corrente,
+    cioè di sostituire l'attuale stato con un nuovo stato.
+    Redux non impone alcun vincolo sulla struttura della Action, anche se per convenzione in genere essa
+    ha almeno una proprietà type che identifica il tipo azione.
+    Sempre per convenzione una action può avere una proprietà payload che contiene eventuali
+    parametri che caratterizzano una specifica azione
+
+Ation Creator: In base alla complessità di un'applicazione può essere utile definire una funzione che genera
+    un'azione in base a terminati parametri: questa funzione è detta action creator
+
+Dispatcher: E' il componente che ha il compito di inviare una Action allo Store il quale, tramie un opportuno Reducer,
+    effettua la transizione di stato prevista dal tipo di Action
+
+Il flusso generale per modificare lo stato corrente di un'applicazione segue i seguenti passi:
+
+1) Vene individuata una Action, eventualmente generata tramite un Action creator
+2) Tale Action viene inviata allo Store tramite un Dispatcher
+3) All'interno dello Store, un Reducer sostituisce allo stato corrente l'evenuale nuovo stato
+    individuato in base all'analisi della Action
