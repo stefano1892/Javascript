@@ -1,0 +1,68 @@
+Cicli di vita di React:
+
+Nel ciclo di vita di un componenteReact possiamo distinguere essenzialmente tre fasi:
+- Inizializzazione del componente
+- Aggiornamento del componente tramite la funzione seState() o la ricezione di nuove Props
+- Rimozione del componente
+
+Il costruttore è il primo metodo che viene chiamato. Per una corretta inizializzazione, all'interno
+del costruttore di un componente, dovremo innanzitutto invocare il costruttore della classe base
+super(props) passando le props ricevute dal componente. Smepre in questa fase, verranno assegnati i valori di
+default alle props che abbiamo definito tramite l'oggetto defaultProps
+
+Il secondo metodo ad essere invocato, immediatamente prima della funzione render(), è
+componentWillMount(). React consiglia di usare il costruttore al posto di questo metodo per ogni
+inizializzazione. Non si può accedere agli elementi del DOM. Se invochiamo la funzione setState()
+all'interno di questo metodo, l'oggetto state verrà aggiornato con il nuovo valore ma non
+verranno chiamati i metodi che solitamente vengono invocati in seguito all'esecuzione della
+funzione setState()
+
+La funzione render() è l'unico metodo obbligatorio quando si vuole definire un componente. Deve
+restituire un React Element oppure null o false, se non vogliamo mostrare nulla sulo schermo per quel componente.
+Deve essere una funzione pura che non deve modificare direttamente l'oggetto props o state.
+All'interno della funzione render() non si deve manipolare il DOM o effettuare chiamate a funzioni
+per acquisire dati da un server.
+
+ComponentDidMount() viene invocata dopo la cunzione render(). Questo è il metodo da usare per
+manipolare il DOM o per recuperare eventuali dati da un server. Le valutazioni fate in merito
+all'oggetto State el metodo componentWillMmount() valgono anche per componentDidMount().
+
+############################
+
+AGGIORNAMENTO DEL COMPONENTE
+Aggiornamento dell'oggetto State
+
+Il primo metodo è shouldComponentUpdate() che riceve come argomenti gli oggetti nextProps e nextState
+i quali rappresentano il prossimo valore dell'oggetto Props e dell'oggetto State. Il metodo
+shouldComponentUpdate() restituisce un valore booleano. Se restituisce false, i metodi successivi
+non verranno invocati. Di default questo metodo restituisce true, consenteno l'aggiornamento
+del componente ad ogni modifia degli oggetti State e Props. Per questo motivo può essere
+usato per determinare se il componente deve essere aggiornato con i prossimi valori di Props e
+State. All'interno di questo metodo è infatti possibile comparare i valori attuali degli oggetti State
+e Props con quelli di nextState e nextProps, permettendo cosi di deidere se effettuare
+l'aggiornamento del componente, restituendo true o false.
+
+Se shouldComponentUpdate() restituisce true, verrà allora invocata componentWillUpdate(). In
+questo metodo, non è consentito modificare l'oggetto State tramite this.setState(). Il metodo
+componentWillUpdate() può essere utilizzato per preparare il componente prima che avvenga
+l'aggiornamento dell'oggetto State o dell'oggetto Props, visto che questo metodo viene chiamato
+anche in seguito alla ricezione di nuove proprietà.
+
+Dopo il metodo render(), viene invocato il componentDidUpdate() che può essere usato per
+scaricare dati aggiornati da un server(nel caso per esempio ci sia stato un aggiornamento
+dell'oggetto Props o State) o per operare sul DOM.
+
+**************************
+RICEZIONE DI NUOVE PROPS
+
+Anche nel caso in cui un componente riceva nuove Props, una serie di metodi verranno invocati.
+
+componentWillReceiveProps(). React non invoca questo metodo in fase di inizializzazione di un componente.
+Viene invece invocato solo successivamente, nel momento in cui nuove Props vengono passare a un componente.
+Può essere utilizzato per aggiornare e modificare l'oggetto State all'interno di un componente.
+
+DISTRUZIONE DI UN COMPONENTE
+
+Verrà invocato come unico metodo componentWillUnmount() che potremo usare per operazioni
+come invalidare eventuali timer avviati nella funzione componentDidMount() e altre operazioni di manutenzione
+che prevengano memory leak.
