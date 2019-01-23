@@ -62,3 +62,15 @@ Il flusso generale per modificare lo stato corrente di un'applicazione segue i s
 2) Tale Action viene inviata allo Store tramite un Dispatcher
 3) All'interno dello Store, un Reducer sostituisce allo stato corrente l'evenuale nuovo stato
     individuato in base all'analisi della Action
+
+https://www.youtube.com/watch?v=OSSpVLpuVWA&t=1589s
+
+YouTube diversifica il flusso:
+Lo STATO definisce la UI
+La UI triggera l'ACTION
+L' ACTION viene inviata al REDUCER
+Il REDUCER aggiorna lo STORE
+Lo STORE contiene lo STATO
+
+Dove studiare redux
+https://learn.freecodecamp.org/front-end-libraries/redux/create-a-redux-store
